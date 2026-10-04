@@ -1,0 +1,74 @@
+table Dim_Date
+	lineageTag: ff792a96-f52e-460d-94aa-641eb064aa41
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5722edd1-d1c6-45ed-b8aa-f3de15a60e11
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: 807adf7e-fcb1-4e5d-ac53-dd0088d2588c
+			defaultHierarchy: LocalDateTable_caf3b6ef-9d9f-4616-8b5f-25f7b70f7d64.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 6ceb474b-070c-48c4-b333-55b8412664d3
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ea6bf3a-9a7c-4d7b-a983-558bbf655adf
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: ec25a7a2-3520-422c-83b2-9bf2d7eacb9e
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		lineageTag: 8878141d-1d1d-4855-a3f0-77dfb4d8dd0f
+		summarizeBy: sum
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = m
+		mode: import
+		source =
+				let
+				    Source = Fact_Sales,
+				    #"Duplicated Column" = Table.DuplicateColumn(Source, "date", "date - Copy"),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Duplicated Column",{"date"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				    #"Inserted Year" = Table.AddColumn(#"Removed Duplicates", "Year", each Date.Year([date]), Int64.Type),
+				    #"Inserted Month" = Table.AddColumn(#"Inserted Year", "Month", each Date.Month([date]), Int64.Type),
+				    #"Inserted Quarter" = Table.AddColumn(#"Inserted Month", "Quarter", each Date.QuarterOfYear([date]), Int64.Type),
+				    #"Inserted Day" = Table.AddColumn(#"Inserted Quarter", "Day", each Date.Day([date]), Int64.Type)
+				in
+				    #"Inserted Day"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
