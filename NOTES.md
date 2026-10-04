@@ -23,3 +23,18 @@ VAR PreviousMonthSales =
     )
 RETURN
     DIVIDE ( CurrentSales - PreviousMonthSales, PreviousMonthSales )
+
+
+    ## Running Total Sales
+
+- Copilot suggestion:
+
+```DAX
+Running Total Sales =
+CALCULATE (
+    [Total Sales],
+    FILTER (
+        ALL ( Dim_Date[date] ),
+        Dim_Date[date] <= MAX ( Dim_Date[date] )
+    )
+)
