@@ -1,6 +1,45 @@
 table Fact_Sales
 	lineageTag: ff9b690c-89b6-4e3a-bfdf-7ddb52d8d4c3
 
+	measure 'Total Sales' =
+			
+			SUM ( Fact_Sales[sales_amount] )
+		lineageTag: 509a7da6-b223-4a7b-bec5-410cbeae78b3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Quantity' =
+			
+			SUM ( Fact_Sales[quantity] )
+		formatString: 0
+		lineageTag: dff06684-f1a4-4bec-8b3f-2f840541b942
+
+	measure 'Total Transactions' =
+			
+			DISTINCTCOUNT ( Fact_Sales[sale_id] )
+		formatString: 0
+		lineageTag: 924d93a4-0b20-426a-bcbd-f15ca1fa7aeb
+
+	measure 'Average Order Value' =
+			
+			DIVIDE ( [Total Sales], [Total Transactions] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 9a7f8419-1dff-46ab-9324-a8cb86f3fde5
+
+	measure 'MoM Sales Growth %' =
+			
+			VAR CurrentSales =
+			    SUM ( Fact_Sales[sales_amount] )
+			VAR PreviousMonthSales =
+			    CALCULATE (
+			        SUM ( Fact_Sales[sales_amount] ),
+			        PREVIOUSMONTH ( Dim_Date[date] )
+			    )
+			RETURN
+			    DIVIDE ( CurrentSales - PreviousMonthSales, PreviousMonthSales )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 64326a9f-fa94-4934-8640-5b5b012d12e0
+
 	column sale_id
 		dataType: int64
 		formatString: 0

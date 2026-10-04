@@ -1,17 +1,14 @@
 table Dim_Date
 	lineageTag: ff792a96-f52e-460d-94aa-641eb064aa41
+	dataCategory: Time
 
 	column date
 		dataType: dateTime
+		isKey
 		formatString: Long Date
 		lineageTag: 5722edd1-d1c6-45ed-b8aa-f3de15a60e11
 		summarizeBy: none
 		sourceColumn: date
-
-		variation Variation
-			isDefault
-			relationship: 807adf7e-fcb1-4e5d-ac53-dd0088d2588c
-			defaultHierarchy: LocalDateTable_caf3b6ef-9d9f-4616-8b5f-25f7b70f7d64.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
