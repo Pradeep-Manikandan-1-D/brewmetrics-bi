@@ -18,19 +18,23 @@ table Dim_Date
 		dataType: int64
 		formatString: 0
 		lineageTag: 6ceb474b-070c-48c4-b333-55b8412664d3
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Year
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column Month
-		dataType: int64
-		formatString: 0
+		dataType: dateTime
+		formatString: Long Date
 		lineageTag: 4ea6bf3a-9a7c-4d7b-a983-558bbf655adf
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Month
 
+		changedProperty = DataType
+
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column Quarter
 		dataType: int64
@@ -45,10 +49,10 @@ table Dim_Date
 		dataType: int64
 		formatString: 0
 		lineageTag: 8878141d-1d1d-4855-a3f0-77dfb4d8dd0f
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Day
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	partition Dim_Date = m
 		mode: import

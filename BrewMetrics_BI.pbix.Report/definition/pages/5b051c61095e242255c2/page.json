@@ -4,5 +4,36 @@
   "displayName": "Page 1",
   "displayOption": "FitToPage",
   "height": 1080,
-  "width": 1920
+  "width": 1920,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "16526f4d6c55fb513d9e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "city"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "7c10a955d554b029d817",
+      "target": "a4b80fbdfc192edee20f",
+      "type": "DataFilter"
+    },
+    {
+      "source": "7c10a955d554b029d817",
+      "target": "0ffc3b0dee82922cba19",
+      "type": "HighlightFilter"
+    }
+  ]
 }
