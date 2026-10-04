@@ -2,61 +2,149 @@
 
 A version-controlled Power BI solution for analyzing BrewMetrics Coffee Co.'s sales performance across cities, store formats, products, and time.
 
-# BrewMetrics BI
+## 1. Project Overview
 
-A version-controlled Power BI solution for analyzing BrewMetrics Coffee Co.'s sales performance across cities, store formats, products, and time.
+BrewMetrics Coffee Co. operates Flagship, Kiosk, and Drive-Thru stores across four cities. This Business Intelligence project uses Power BI to analyze sales performance and identify important patterns across time, cities, store formats, and products.
 
-## Project Overview
+The project is developed as a version-controlled Power BI Project (`.pbip`) and maintained in GitHub to track the development of the semantic model, DAX measures, dashboard, and documentation.
 
-This project analyzes BrewMetrics Coffee Co. sales data using Power BI. The solution uses a star schema with a central Fact_Sales table and supporting date, city, and product dimension tables.
+## 2. Data Model
 
-## Data Model
+The solution follows a star-schema structure consisting of one fact table and three dimension tables.
 
-The Power BI semantic model contains:
+### Fact Table
 
-- **Fact_Sales** — sales transactions, quantity, unit price, and sales amount
-- **Dim_Date** — date, year, month, quarter, and day information
-- **Dim_City** — city information
-- **Dim_Product** — product and category information
+**Fact_Sales**
 
-The model uses one-to-many relationships from the dimension tables to Fact_Sales.
+Contains the transactional sales data, including:
 
-## DAX Measures
+- Sale ID
+- Date
+- City
+- Store Format
+- Category
+- Item
+- Quantity
+- Unit Price
+- Sales Amount
 
-The project includes:
+### Dimension Tables
 
-- MoM Sales Growth %
-- Running Total Sales
-- Product Sales Rank
-- Average Order Value
+**Dim_Date**
 
-These measures were developed with GitHub Copilot assistance and documented in `NOTES.md`.
+Contains date-related information:
 
-## Dashboard
+- Date
+- Year
+- Month
+- Quarter
+- Day
 
-The dashboard provides:
+**Dim_City**
 
-- Cold Brew sales trend over time
-- Sales performance comparison across cities
-- Sales distribution by category
-- KPI cards for sales and order metrics
-- City filtering through a slicer
+Contains the unique cities in the dataset.
+
+**Dim_Product**
+
+Contains product and category information.
+
+### Relationships
+
+The dimension tables are connected to the central `Fact_Sales` table through one-to-many relationships:
+
+- `Dim_Date[date]` → `Fact_Sales[date]`
+- `Dim_City[city]` → `Fact_Sales[city]`
+- `Dim_Product[item]` → `Fact_Sales[item]`
+
+This structure allows the dashboard to analyze sales across different dimensions while maintaining a clear semantic model.
+
+## 3. DAX Measures
+
+The project includes the following DAX measures:
+
+### MoM Sales Growth %
+
+Calculates month-over-month sales growth by comparing current sales with the previous month's sales.
+
+### Running Total Sales
+
+Calculates cumulative sales over time.
+
+### Product Sales Rank
+
+Uses `RANKX` to rank products based on total sales, with the highest-selling product receiving rank 1.
+
+### Average Order Value
+
+Calculates the average sales value per transaction using total sales and total transactions.
+
+The DAX measures were developed with GitHub Copilot assistance. Copilot suggestions were reviewed and documented in `NOTES.md`.
+
+## 4. Dashboard
+
+The BrewMetrics dashboard provides an interactive view of sales performance.
+
+The dashboard includes:
+
+- Total Sales KPI
+- Running Total Sales KPI
+- Average Order Value KPI
+- Total Quantity KPI
+- Cold Brew Sales Trend
+- Sales Performance by City
+- Sales Distribution by Category
+- City slicer for interactive filtering
 - City → Store Format → Category drill-down analysis
 
-## Key Insights
+The dashboard is designed to highlight seasonal sales patterns and differences in performance across cities.
 
-1. **Cold Brew sales show a noticeable seasonal pattern across the analysis period**, making time-based monitoring useful for planning inventory and promotions.
+## 5. Key Insights
 
-2. **Bengaluru is the strongest-performing city**, while the other cities show a performance gap that can be investigated further using the drill-down analysis.
+### 1. Cold Brew Seasonal Pattern
 
-3. **Product categories contribute differently to overall sales**, allowing BrewMetrics to identify stronger and weaker category-level performance.
+The Cold Brew sales trend shows a noticeable pattern across the analysis period. Monitoring this trend can help BrewMetrics plan inventory, promotions, and product availability during periods of higher demand.
 
-## Version Control
+### 2. City Performance Gap
 
-The Power BI project is maintained as a `.pbip` project in GitHub. Development was completed through separate commits for schema development and DAX measures, preserving the project history.
+Sales performance differs across the four cities. Bengaluru demonstrates stronger sales performance compared with the other cities, highlighting an opportunity to investigate the factors contributing to its performance.
 
-## Files
+### 3. Category Contribution
 
-- `BrewMetrics_BI.pbip` — Power BI project
-- `NOTES.md` — Copilot suggestions and corrections
-- `REFLECTION.md` — project reflection
+The category-level sales distribution shows that different product categories contribute differently to overall sales. This can help BrewMetrics identify stronger categories and areas requiring further attention.
+
+## 6. Version Control
+
+The Power BI solution is maintained as a `.pbip` project inside the GitHub repository.
+
+The development history includes separate commits for:
+
+- Initial project setup
+- Star-schema development
+- MoM Sales Growth measure
+- Running Total Sales measure
+- Product Sales Rank measure
+- Dashboard and project documentation
+
+The complete Git history is preserved to demonstrate the development process.
+
+## 7. Project Files
+
+| File / Folder | Description |
+|---|---|
+| `BrewMetrics_BI.pbip` | Power BI project |
+| `BrewMetrics_BI.pbip.Report` | Power BI report definition |
+| `BrewMetrics_BI.pbip.SemanticModel` | Power BI semantic model |
+| `NOTES.md` | Copilot suggestions and corrections |
+| `REFLECTION.md` | Reflection on Copilot and version-controlled development |
+
+## 8. Tools Used
+
+- Power BI Desktop
+- Power BI Project (`.pbip`)
+- Power Query
+- DAX
+- GitHub
+- GitHub Desktop
+- Visual Studio Code
+- GitHub Copilot
+
