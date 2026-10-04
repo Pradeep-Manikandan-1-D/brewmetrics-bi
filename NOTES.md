@@ -38,3 +38,17 @@ CALCULATE (
         Dim_Date[date] <= MAX ( Dim_Date[date] )
     )
 )
+
+## Product Sales Rank
+
+- Copilot suggestion:
+
+```DAX
+Product Sales Rank =
+RANKX (
+    ALL ( Dim_Product[item] ),
+    [Total Sales],
+    ,
+    DESC,
+    DENSE
+)
